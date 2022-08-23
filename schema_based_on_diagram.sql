@@ -29,11 +29,21 @@ create table medical_histories(
                                 invoice_id int,
                                 treatment_id int
                                 constraint fk foreign key invoice_id references invoices(id)on delete cascade,
-                                constraint fk foreign key treatment_id references treatments(id)on delete cascade);
+                                constraint fk foreign key treatment_id references treatments(id)on delete cascade
+                                );
   
   create table treatments(id serial primary key,
                           type varchar(10),
                           name varchar(20),
-                          constraint fk foreign key id references medical_histories(id)
                           );
+
+   CREATE TABLE medical_histories_has_treatments (
+       medical_history_id int refrences medical_histories(id),
+       treatment_id int refrences treatments(id),
+    );                    
+
+   create index patient_id_medical_histories on medical_histories(patient_id);
+   create index invoices_medical_histories on invoices(medical_history_id);
+   create index invoice_items_treatment_id on invoice_items(treatment_id);
+
                                  
