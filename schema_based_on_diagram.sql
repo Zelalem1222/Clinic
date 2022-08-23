@@ -20,4 +20,20 @@ create table medical_histories(
     constraint fk 
     foreign key patient_id
     references patients(id)
-    )    
+    )  
+
+    create table invoice_items(id serial primary key,
+                                unit_price decimal,
+                                quantity int,
+                                total_price decimal,
+                                invoice_id int,
+                                treatment_id int
+                                constraint fk foreign key invoice_id references invoices(id)on delete cascade,
+                                constraint fk foreign key treatment_id references treatments(id)on delete cascade);
+  
+  create table treatments(id serial primary key,
+                          type varchar(10),
+                          name varchar(20),
+                          constraint fk foreign key id references medical_histories(id)
+                          );
+                                 
